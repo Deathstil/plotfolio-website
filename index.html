@@ -1,120 +1,782 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Creative portfolio of Frizux - Digital Artist & Developer">
-    <meta name="keywords" content="art, digital art, portfolio, artist, developer, Frizux">
-    <meta name="author" content="Frizux">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-    
-    <title>Frizux | Digital Art & Code</title>
-    <link rel="stylesheet" href="style.css">
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — Guildite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+
+  <link rel="manifest" href="/test-1/manifest.json">
+
+  <!-- iOS / Safari PWA support -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Guildite">
+  <link rel="apple-touch-icon" href="/test-1/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/test-1/icons/icon-192x192.png">
+
+  <!-- Theme color (browser chrome color on Android) -->
+  <meta name="theme-color" content="#2563eb">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/test-1/favicon.ico">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d12;
+      --surface: #16161f;
+      --surface-2: #1e1e2a;
+      --border: rgba(255,255,255,0.08);
+      --border-focus: rgba(255,255,255,0.25);
+      --text: #f0eeff;
+      --text-sub: rgba(240,238,255,0.55);
+      --text-hint: rgba(240,238,255,0.35);
+      --primary: #6c63ff;
+      --primary-hover: #7b73ff;
+      --primary-glow: rgba(108,99,255,0.2);
+      --danger: #ff5f5f;
+      --danger-bg: rgba(255,95,95,0.1);
+      --success: #3ecf8e;
+      --google-bg: #ffffff;
+      --google-text: #1f1f1f;
+      --google-border: rgba(0,0,0,0.12);
+      --google-hover: #f5f5f5;
+      --input-bg: rgba(255,255,255,0.04);
+      --input-bg-focus: rgba(255,255,255,0.07);
+      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+
+    /* subtle grid bg */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(108,99,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(108,99,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ambient orb */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(108,99,255,0.1) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 400px;
+      animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* logo */
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 2rem;
+      text-decoration: none;
+    }
+
+    .logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      object-fit: contain;
+    }
+
+    .logo-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    /* heading */
+    .heading {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .heading h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.02em;
+    }
+
+    .heading p {
+      font-size: 0.875rem;
+      color: var(--text-sub);
+    }
+
+    /* google button */
+    .btn-google {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0.75rem 1rem;
+      background: var(--google-bg);
+      color: var(--google-text);
+      border: 1px solid var(--google-border);
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-bottom: 1.25rem;
+    }
+
+    .btn-google:hover {
+      background: var(--google-hover);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    }
+
+    .btn-google:active { transform: scale(0.98); }
+
+    .btn-google:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .google-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.25rem;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 0.5px;
+      background: var(--border);
+    }
+
+    .divider span {
+      font-size: 0.75rem;
+      color: var(--text-hint);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* form fields */
+    .field {
+      margin-bottom: 1rem;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-sub);
+      margin-bottom: 6px;
+      letter-spacing: 0.02em;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 0.72rem 1rem;
+      background: var(--input-bg);
+      border: 0.5px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      outline: none;
+    }
+
+    .field input::placeholder {
+      color: var(--text-hint);
+    }
+
+    .field input:focus {
+      background: var(--input-bg-focus);
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .field input.has-toggle {
+      padding-right: 2.75rem;
+    }
+
+    .field input.error {
+      border-color: var(--danger);
+      box-shadow: 0 0 0 3px var(--danger-bg);
+    }
+
+    /* password toggle */
+    .toggle-pw {
+      position: absolute;
+      right: 0.875rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      color: var(--text-hint);
+      display: flex;
+      align-items: center;
+      transition: color 0.15s;
+    }
+
+    .toggle-pw:hover { color: var(--text-sub); }
+
+    /* inline error */
+    .field-error {
+      display: none;
+      font-size: 0.75rem;
+      color: var(--danger);
+      margin-top: 5px;
+      padding-left: 2px;
+      animation: errIn 0.2s ease both;
+    }
+
+    @keyframes errIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .field-error.show { display: block; }
+
+    /* forgot */
+    .forgot-row {
+      text-align: right;
+      margin-top: -0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .forgot-row a {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .forgot-row a:hover { color: var(--primary); }
+
+    /* sign in button */
+    .btn-primary {
+      width: 100%;
+      padding: 0.78rem 1rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 1.25rem;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 4px 20px rgba(108,99,255,0.35);
+    }
+
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-primary:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* spinner */
+    .spinner {
+      width: 15px;
+      height: 15px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* sign up link */
+    .signup-link {
+      text-align: center;
+      font-size: 0.83rem;
+      color: var(--text-hint);
+    }
+
+    .signup-link a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.15s;
+    }
+
+    .signup-link a:hover { opacity: 0.8; }
+
+    /* global error banner (for firebase errors) */
+    .error-banner {
+      display: none;
+      background: var(--danger-bg);
+      border: 0.5px solid rgba(255,95,95,0.3);
+      border-radius: 10px;
+      padding: 0.7rem 1rem;
+      font-size: 0.82rem;
+      color: var(--danger);
+      margin-bottom: 1rem;
+      animation: errIn 0.2s ease both;
+    }
+
+    .error-banner.show { display: block; }
+
+    /* responsive */
+    @media (max-width: 440px) {
+      .card { padding: 2rem 1.5rem; border-radius: 16px; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header Section -->
-    <header id="header">
-        <a href="#" class="logo">Frizux</a>
-        
-        <nav id="navbar">
-            <a href="#home" class="active">Home</a>
-            <a href="#projects">Projects</a>
-        </nav>
-        
-        <div class="mobile-menu-btn" id="menu-btn">
-            <i class="fas fa-bars"></i>
-        </div>
-    </header> 
 
-    <!-- Home Section -->
-    <section class="home" id="home">
-        <div class="home-img">
-            <img src="photo_2025-08-09_17-37-01.jpg" alt="Frizux - Artist & Developer">
-        </div>
-        
-        <div class="home-content">
-            <h1>Hi, I'm <span>Frizux</span></h1>
-            <div class="animated-roles">
-                <div class="role">Artist</div>
-                <div class="role">Developer</div>
-                <div class="role">Engineer</div>
-                <div class="role">Creator</div>
-            </div>
-            <p>I blend digital art with technology to create immersive visual experiences.</p>
-            <p>My work explores the boundaries between imagination and implementation.</p>
-            <p>Currently crafting new worlds through code and creativity.</p>
-            
-            <div class="social-icons">
-                <a href="https://github.com/Deathstil" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://www.instagram.com/frizux_art/" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.artstation.com/leafninja6" aria-label="ArtStation" target="_blank"><i class="fab fa-artstation"></i></a>
-            </div>
-        </div>
-    </section>
+  <div class="card">
+    <!-- Logo -->
+    <a href="#" class="logo">
+      <img src="images/logo ssi.png" alt="Guildite logo"
+           onerror="this.onerror=null;this.style.display='none'">
+      <span class="logo-text">Guildite</span>
+    </a>
 
-    <!-- Projects Section -->
-    <section class="projects" id="projects">
-        <h2 class="section-title">My <span>Artwork</span></h2>
-        
-        <div class="projects-container">
-            <!-- Project 1 -->
-            <div class="project-item">
-                <img src="/1754759800635.jpeg" alt="Dream - Art by Frizux" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">Dream</h3>
-                    <p class="project-description">portrait of a girl.</p>
-                    <a href="https://www.instagram.com/p/C9KBytgMJZr/" class="project-link" target="_blank">View on Instagram</a>
-                </div>
-            </div>
-            
-            <!-- Project 2 -->
-            <div class="project-item">
-                <img src="photo_2025-08-09_17-40-35.jpg" alt="Creative Workspace by Frizux" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">My Studio</h3>
-                    <p class="project-description">Where ideas transform into digital reality.</p>
-                </div>
-            </div>
-            
-            <!-- Project 3 -->
-            <div class="project-item">
-                <img src="character.webp" alt="Character Design by Frizux" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">Urban Legends</h3>
-                    <p class="project-description">Character design for an upcoming narrative project.</p>
-                    <a href="https://www.instagram.com/frizux_art/p/DFkMQJiMOHg/" class="project-link" target="_blank">View on Instagram</a>
-                </div>
-            </div>
-            
-            <!-- Project 4 -->
-            <div class="project-item">
-                <img src="portraits.jpeg" alt="Portrait Series by Frizux" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">Portraits</h3>
-                    <p class="project-description">Stylized character studies with unique personalities.</p>
-                    <a href="https://www.instagram.com/p/CtRqXdQNlTK/" class="project-link" target="_blank">View on Instagram</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="view-more">
-            <a href="https://www.instagram.com/frizux_art/" class="btn" target="_blank">Explore Full Portfolio</a>
-        </div>
-    </section>
+    <!-- Heading -->
+    <div class="heading">
+      <h1>Welcome back</h1>
+      <p>Sign in to your account to continue</p>
+    </div>
 
-<script src="javascript.js"></script>
+    <!-- Global error banner -->
+    <div class="error-banner" id="globalError"></div>
+
+    <!-- Google -->
+    <button class="btn-google" id="googleBtn" type="button">
+      <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+      </svg>
+      Continue with Google
+    </button>
+
+    <!-- Divider -->
+    <div class="divider"><span>or</span></div>
+
+    <!-- Email -->
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="you@example.com" autocomplete="email" />
+      <div class="field-error" id="emailError"></div>
+    </div>
+
+    <!-- Password -->
+    <div class="field">
+      <label for="password">Password</label>
+      <div class="input-wrap">
+        <input type="password" id="password" placeholder="Your password" class="has-toggle" autocomplete="current-password" />
+        <button class="toggle-pw" id="togglePw" type="button" aria-label="Show password" tabindex="-1">
+          <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+      <div class="field-error" id="passwordError"></div>
+    </div>
+
+    <!-- Forgot password -->
+    <div class="forgot-row">
+      <a href="forgotpassword/forget.html">Forgot password?</a>
+    </div>
+
+    <!-- Sign in button -->
+    <button class="btn-primary" id="signInBtn" type="button">
+      <span class="spinner" id="signInSpinner"></span>
+      <span id="signInLabel">Sign in</span>
+    </button>
+
+    <!-- Sign up link -->
+    <div class="signup-link">
+      Don't have an account? <a href="signup/signup.html">Sign up</a>
+    </div>
+  </div>
+
+<script type="module">
+  import { initializeApp }      from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut }
+    from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+  import { getDatabase, ref, get, set }
+    from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+    
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBzPa671GH71UvTcZ3dECFPrW4xe1vS9ds",
+    authDomain: "marketplace-e0bff.firebaseapp.com",
+    projectId: "marketplace-e0bff",
+    storageBucket: "marketplace-e0bff.appspot.com",
+    messagingSenderId: "892936444768",
+    appId: "1:892936444768:web:f595b3a3e5d697988e1c05",
+    databaseURL: "https://marketplace-e0bff-default-rtdb.europe-west1.firebasedatabase.app"
+  };
+
+  const app      = initializeApp(firebaseConfig);
+  const auth     = getAuth(app);
+  const db       = getDatabase(app);
+  const provider = new GoogleAuthProvider();
+
+  /* ── DOM refs ── */
+  const emailInput    = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const signInBtn     = document.getElementById('signInBtn');
+  const signInLabel   = document.getElementById('signInLabel');
+  const signInSpinner = document.getElementById('signInSpinner');
+  const googleBtn     = document.getElementById('googleBtn');
+  const globalError   = document.getElementById('globalError');
+  const emailError    = document.getElementById('emailError');
+  const passwordError = document.getElementById('passwordError');
+  const togglePw      = document.getElementById('togglePw');
+  const eyeIcon       = document.getElementById('eyeIcon');
+
+  /* ── If already signed in, skip to home ── */
+  onAuthStateChanged(auth, (user) => {
+    if (user && user.emailVerified) window.location.href = 'home/home.html';
+  });
+
+  /* ── Helpers ── */
+  function clearErrors() {
+    [emailError, passwordError, globalError].forEach(el => {
+      el.textContent = '';
+      el.classList.remove('show');
+    });
+    emailInput.classList.remove('error');
+    passwordInput.classList.remove('error');
+  }
+
+  function showFieldError(inputEl, errorEl, msg) {
+    inputEl.classList.add('error');
+    errorEl.textContent = msg;
+    errorEl.classList.add('show');
+  }
+
+  function showGlobalError(msg) {
+    globalError.textContent = msg;
+    globalError.classList.add('show');
+  }
+
+  function setLoading(loading) {
+    signInBtn.disabled   = loading;
+    googleBtn.disabled   = loading;
+    signInSpinner.style.display = loading ? 'block' : 'none';
+    signInLabel.textContent     = loading ? 'Signing in…' : 'Sign in';
+  }
+
+  /* ── Ensure user record exists in Firebase ── */
+  async function ensureUserRecord(user) {
+    const userRef  = ref(db, `users/${user.uid}`);
+    const snapshot = await get(userRef);
+    if (!snapshot.exists()) {
+      await set(userRef, {
+        name:              user.displayName || '',
+        email:             user.email       || '',
+        profilePictureUrl: user.photoURL    || '',
+        role:              'user',
+        approved:          true,
+        banned:            false,
+        createdAt:         new Date().toISOString(),
+        registrationDate:  Date.now()
+      });
+    }
+    return (await get(userRef)).val();
+  }
+
+  /* ── After sign-in routing ── */
+  async function handlePostSignIn(user) {
+    const data = await ensureUserRecord(user);
+    sessionStorage.setItem('uid', user.uid);
+
+    // Block unverified email/password users (Google users skip this)
+    if (!user.emailVerified && user.providerData[0]?.providerId === 'password') {
+      await signOut(auth);
+      sessionStorage.removeItem('uid');
+      localStorage.setItem('pendingEmail', user.email);
+      window.location.href = 'emailverification/verify-email.html';
+      return;
+    }
+
+    if (data.banned) {
+      window.location.href = 'adminlogic/banned/banned.html';
+      return;
+    }
+
+    /* Admin roles go to admin panel */
+    const adminRoles = ['admin', 'moderator', 'superadmin'];
+    if (adminRoles.includes(data.role)) {
+      window.location.href = 'adminlogic/approve.html';
+      return;
+    }
+
+    window.location.href = 'home/home.html';
+  }
+
+  /* ── Google sign-in ── */
+  googleBtn.addEventListener('click', async () => {
+    clearErrors();
+    googleBtn.disabled = true;
+    googleBtn.textContent = 'Connecting…';
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+      await handlePostSignIn(result.user);
+    } catch (err) {
+      googleBtn.disabled = false;
+      googleBtn.innerHTML = `
+        <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        Continue with Google`;
+
+      if (err.code !== 'auth/popup-closed-by-user' && err.code !== 'auth/cancelled-popup-request') {
+        showGlobalError('Google sign-in failed. Please try again.');
+      }
+    }
+  });
+
+  /* ── Email/password sign-in ── */
+  async function signInWithEmail() {
+    clearErrors();
+
+    const email    = emailInput.value.trim();
+    const password = passwordInput.value;
+    let valid      = true;
+
+    if (!email) {
+      showFieldError(emailInput, emailError, 'Please enter your email.');
+      valid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showFieldError(emailInput, emailError, 'Enter a valid email address.');
+      valid = false;
+    }
+
+    if (!password) {
+      showFieldError(passwordInput, passwordError, 'Please enter your password.');
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    setLoading(true);
+
+    try {
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      await handlePostSignIn(result.user);
+    } catch (err) {
+      setLoading(false);
+
+      const errorMap = {
+        'auth/invalid-login-credentials': ['password', 'Incorrect email or password.'],
+        'auth/user-not-found':            ['email',    'No account found with this email.'],
+        'auth/wrong-password':            ['password', 'Incorrect password.'],
+        'auth/invalid-email':             ['email',    'Enter a valid email address.'],
+        'auth/too-many-requests':         ['global',   'Too many attempts. Please wait a moment before trying again.'],
+        'auth/network-request-failed':    ['global',   'Network error. Check your connection and try again.'],
+        'auth/user-disabled':             ['global',   'This account has been disabled.'],
+      };
+
+      const [target, message] = errorMap[err.code] || ['global', 'Sign-in failed. Please try again.'];
+
+      if (target === 'email')    showFieldError(emailInput, emailError, message);
+      if (target === 'password') showFieldError(passwordInput, passwordError, message);
+      if (target === 'global')   showGlobalError(message);
+    }
+  }
+
+  signInBtn.addEventListener('click', signInWithEmail);
+
+  /* ── Enter key ── */
+  [emailInput, passwordInput].forEach(input => {
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') signInWithEmail();
+    });
+  });
+
+  /* ── Clear errors on typing ── */
+  emailInput.addEventListener('input', () => {
+    emailInput.classList.remove('error');
+    emailError.classList.remove('show');
+    globalError.classList.remove('show');
+  });
+
+  passwordInput.addEventListener('input', () => {
+    passwordInput.classList.remove('error');
+    passwordError.classList.remove('show');
+    globalError.classList.remove('show');
+  });
+
+  /* ── Password toggle ── */
+  togglePw.addEventListener('click', () => {
+    const isHidden = passwordInput.type === 'password';
+    passwordInput.type = isHidden ? 'text' : 'password';
+    togglePw.style.color = isHidden ? 'rgba(240,238,255,0.7)' : '';
+    eyeIcon.innerHTML = isHidden
+      ? `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+         <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+         <line x1="1" y1="1" x2="23" y2="23"/>`
+      : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+         <circle cx="12" cy="12" r="3"/>`;
+  });
+</script>
+
+<script>
+/* ── Register Service Worker ── */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+    const delay = isIOS ? 2000 : 0;
+    setTimeout(() => {
+      navigator.serviceWorker.register('/test-1/sw.js', { scope: '/test-1/' })
+        .then(reg => console.log('✅ SW registered:', reg.scope))
+        .catch(err => console.warn('SW failed:', err));
+    }, delay);
+  });
+}
+
+/* ── Install Prompt (Android Chrome "Add to Home Screen") ── */
+let _deferredInstallPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  _deferredInstallPrompt = e;
+
+  // Show your custom install banner after 3 seconds
+  setTimeout(showInstallBanner, 3000);
+});
+
+function showInstallBanner() {
+  if (!_deferredInstallPrompt) return;
+  if (localStorage.getItem('guildite_install_dismissed')) return;
+
+  const banner = document.createElement('div');
+  banner.id = 'guildite-install-banner';
+  banner.innerHTML = `
+    <div style="
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;
+      background: #1e293b; border-top: 2px solid #2563eb;
+      padding: 16px 20px; display: flex; align-items: center; gap: 14px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.4); font-family: -apple-system, sans-serif;
+    ">
+      <img src="/test-1/icons/icon-72x72.png" alt="Guildite" 
+           style="width:48px;height:48px;border-radius:12px;flex-shrink:0">
+      <div style="flex:1;min-width:0">
+        <div style="color:#f8fafc;font-weight:700;font-size:0.95rem">Install Guildite</div>
+        <div style="color:#94a3b8;font-size:0.8rem">Add to home screen for the full app experience</div>
+      </div>
+      <button id="guildite-install-btn" style="
+        background:#2563eb;color:white;border:none;padding:10px 18px;
+        border-radius:8px;font-weight:700;font-size:0.9rem;cursor:pointer;
+        flex-shrink:0;white-space:nowrap
+      ">Install</button>
+      <button id="guildite-install-dismiss" style="
+        background:transparent;border:none;color:#64748b;font-size:1.4rem;
+        cursor:pointer;padding:4px 8px;flex-shrink:0;line-height:1
+      ">✕</button>
+    </div>
+  `;
+  document.body.appendChild(banner);
+
+  document.getElementById('guildite-install-btn').addEventListener('click', async () => {
+    banner.remove();
+    _deferredInstallPrompt.prompt();
+    const { outcome } = await _deferredInstallPrompt.userChoice;
+    console.log('Install outcome:', outcome);
+    _deferredInstallPrompt = null;
+  });
+
+  document.getElementById('guildite-install-dismiss').addEventListener('click', () => {
+    banner.remove();
+    localStorage.setItem('guildite_install_dismissed', '1');
+  });
+}
+
+/* ── Detect when app is installed ── */
+window.addEventListener('appinstalled', () => {
+  console.log('✅ Guildite installed as PWA');
+  const banner = document.getElementById('guildite-install-banner');
+  if (banner) banner.remove();
+  _deferredInstallPrompt = null;
+});
+</script>
 </body>
-
 </html>
-
